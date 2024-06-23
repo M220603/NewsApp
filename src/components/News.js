@@ -1,0 +1,292 @@
+import React from 'react';
+import NewsItem from './NewsItem';
+import Spinner from './spinner';
+import PropTypes from 'prop-types'
+import InfiniteScroll from 'react-infinite-scroll-component';
+
+const propTypes = {};
+
+const defaultProps = {};
+
+
+class News extends React.Component {
+    article=  [
+        {
+        "source": {
+        "id": "bbc-news",
+        "name": "BBC News"
+        },
+        "author": "BBC News",
+        "title": "Israel opens Gaza aid crossing for first time as ceasefire calls grow",
+        "description": "UN aid enters Gaza directly from Israel, as the UK, Germany and France call for fighting to stop.",
+        "url": "http://www.bbc.co.uk/news/live/world-middle-east-67746033",
+        "urlToImage": "https://m.files.bbci.co.uk/modules/bbc-morph-news-waf-page-meta/5.3.0/bbc_news_logo.png",
+        "publishedAt": "2023-12-18T06:07:21.4557053Z",
+        "content": "It's just ticked over 07:15 in Gaza and Israel, and 05:15 in London - if youre just joining us, heres a quick catch-up on the latest developments.\r\nUN aid has entered Gaza directly from Israel for th… [+1156 chars]"
+        },
+        {
+        "source": {
+        "id": "bbc-news",
+        "name": "BBC News"
+        },
+        "author": "BBC News",
+        "title": "Jimmy Lai: Hong Kong pro-democracy media tycoon's trial begins",
+        "description": "His case has drawn international uproar and is seen as a test of Hong Kong's judicial independence.",
+        "url": "http://www.bbc.co.uk/news/world-asia-china-67745653",
+        "urlToImage": "https://ichef.bbci.co.uk/news/1024/branded_news/18305/production/_132077099_gettyimages-1213417504.jpg",
+        "publishedAt": "2023-12-18T02:37:19.7204872Z",
+        "content": "Pro-democracy media tycoon Jimmy Lai's long-awaited trial over charges that he \"colluded with foreign forces\" has begun in Hong Kong. \r\nThe 76-year-old, who has been in prison since December 2020, co… [+4565 chars]"
+        },
+        {
+        "source": {
+        "id": "bbc-news",
+        "name": "BBC News"
+        },
+        "author": "BBC News",
+        "title": "Fourteen killed in Argentina as storm brings 150km/h winds and disruption",
+        "description": "The storm damaged buildings and caused power cuts across Buenos Aires province over the weekend.",
+        "url": "http://www.bbc.co.uk/news/world-latin-america-67745451",
+        "urlToImage": "https://ichef.bbci.co.uk/news/1024/branded_news/8199/production/_132077133_08e6f53a2b19fe619210a91aec01283f73c5a7600_0_5500_36841000x670.jpg",
+        "publishedAt": "2023-12-18T02:07:15.0486416Z",
+        "content": "Fourteen people have been killed after a storm brought heavy rain and winds of 150km/h (93mph) to eastern Argentina. \r\nThe storm hit the port city of Bahia Blanca, around 570km (355 miles) south of B… [+2740 chars]"
+        },
+        {
+        "source": {
+        "id": "bbc-news",
+        "name": "BBC News"
+        },
+        "author": "BBC News",
+        "title": "End 'culture of hatred', says mother of boy shot in US",
+        "description": "Glasgow-born Susan Swimm's 23-year-old son Rory was shot dead by a teenager in Utah in October.",
+        "url": "http://www.bbc.co.uk/news/uk-scotland-67694134",
+        "urlToImage": "https://ichef.bbci.co.uk/news/1024/branded_news/DC25/production/_132075365_roryswimm.png",
+        "publishedAt": "2023-12-18T01:37:16.8936473Z",
+        "content": "A Scottish mother whose son was shot dead in the US has called for an end to the country's \"culture of hatred\".\r\nDetectives in Utah believe Rory Swimm was killed by a 15-year-old schoolboy who had be… [+5373 chars]"
+        },
+        {
+        "source": {
+        "id": "bbc-news",
+        "name": "BBC News"
+        },
+        "author": "BBC News",
+        "title": "Serbia's Vucic claims big election victory for party",
+        "description": "The president's party is set to win, projections say, but the opposition still has hopes in Belgrade.",
+        "url": "http://www.bbc.co.uk/news/world-europe-67742032",
+        "urlToImage": "https://ichef.bbci.co.uk/news/1024/branded_news/7965/production/_132077013_e955ce2ccd066ec0f9cbe20fabde9a9e897eb9310_268_5308_29881000x563.jpg",
+        "publishedAt": "2023-12-18T01:07:19.0484947Z",
+        "content": "Serbian President Aleksandar Vucic has claimed victory in snap parliamentary elections, saying his party is heading for an absolute majority.\r\nHis Serbian Progressive Party, or SNS, is set to win alm… [+4675 chars]"
+        },
+        {
+        "source": {
+        "id": "bbc-news",
+        "name": "BBC News"
+        },
+        "author": "BBC News",
+        "title": "Afghanistan: 'Tea is sometimes all I have to give my hungry baby'",
+        "description": "Some Afghans are giving their children sedatives as they struggle to feed them following huge aid cuts.",
+        "url": "http://www.bbc.co.uk/news/world-asia-67707715",
+        "urlToImage": "https://ichef.bbci.co.uk/news/1024/branded_news/5DC5/production/_132050042_5.jpg",
+        "publishedAt": "2023-12-18T00:07:18.5485381Z",
+        "content": "\"The last time I was able to buy milk for my baby was two months ago. Normally I just fill the [feeding] bottle with tea. Or I soak bread in tea and then feed it to her,\" Sohaila Niyazi says, sitting… [+7562 chars]"
+        },
+        {
+        "source": {
+        "id": "bbc-news",
+        "name": "BBC News"
+        },
+        "author": "BBC News",
+        "title": "Queensland sees flooding after near-record rainfall",
+        "description": "Thousands of people in the north of the state have been urged to move to higher ground.",
+        "url": "http://www.bbc.co.uk/news/world-australia-67740978",
+        "urlToImage": "https://ichef.bbci.co.uk/news/1024/branded_news/315D/production/_132073621_33a11e8c028073febae9f72e77e9278f891e6a040_0_5019_33461000x667.jpg",
+        "publishedAt": "2023-12-17T23:52:15.81454Z",
+        "content": "Near-record levels of rainfall have caused life-threatening flooding in the Australian state of Queensland, authorities say. \r\nThousands of people in the north of the state have been urged to move to… [+1809 chars]"
+        },
+        {
+        "source": {
+        "id": "bbc-news",
+        "name": "BBC News"
+        },
+        "author": "BBC News",
+        "title": "Israel Gaza: Hostages shot by IDF put out 'SOS' sign written with leftover food",
+        "description": "The three hostages were mistakenly killed in Gaza on Friday by Israeli troops.",
+        "url": "http://www.bbc.co.uk/news/world-middle-east-67745092",
+        "urlToImage": "https://ichef.bbci.co.uk/news/1024/branded_news/40B7/production/_132076561_dc5933e2-e29e-4876-bc84-6414c15d778f.jpg",
+        "publishedAt": "2023-12-17T20:52:18.9707274Z",
+        "content": "Three Israeli hostages mistakenly killed by soldiers in Gaza on Friday had used leftover food to write signs pleading for help, Israel says.\r\nThe men had been staying at the building next to where th… [+3671 chars]"
+        },
+        {
+        "source": {
+        "id": "bbc-news",
+        "name": "BBC News"
+        },
+        "author": "BBC Sport",
+        "title": "NBA legend Kareem Abdul-Jabbar suffers broken hip after fall in Los Angeles",
+        "description": "NBA legend Kareem Abdul-Jabbar is taken to hospital in Los Angeles after breaking his hip in a fall at a concert.",
+        "url": "http://www.bbc.co.uk/sport/basketball/67741290",
+        "urlToImage": "https://ichef.bbci.co.uk/news/1024/branded_sport/8621/production/_132073343_gettyimages-1823173690-1.jpg",
+        "publishedAt": "2023-12-17T10:37:23.1119906Z",
+        "content": "NBA legend Kareem Abdul-Jabbar has been taken to hospital after breaking his hip in a fall at a concert on Friday.\r\nThe 76-year-old, who is the only six-time Most Valuable Player in league history, i… [+891 chars]"
+        },
+        {
+        "source": {
+        "id": "bbc-news",
+        "name": "BBC News"
+        },
+        "author": "BBC News",
+        "title": "Why US-Palestinian families are having 'the talk'",
+        "description": "American-Palestinian parents have been having difficult conversations with their children about racism.",
+        "url": "http://www.bbc.co.uk/news/world-us-canada-67693315",
+        "urlToImage": "https://ichef.bbci.co.uk/news/1024/branded_news/13169/production/_132058187_gettyimages-1728779287.jpg",
+        "publishedAt" : "2023-12-17T10:37:21.0615465Z",
+        "content" : "After the shooting of three college students in New England and a string of other incidents, Palestinian Americans say they are worried about their safety. \r\nWhen Samer Elbandak heard that three youn… [+5483 chars]"
+    }
+        ]
+    
+     static defaultProps={
+        country :'in',
+        pageSize:6,
+        category:'general'
+        
+     }   
+
+     static propTypes={
+        country:PropTypes.string,
+        pageSize:PropTypes.number,
+        category:PropTypes.string,
+     }
+
+
+constructor(props) {
+    super(props);
+
+    this.state = {
+        article: this.article,
+        loading:true,
+         page:1,
+         totalResults:0
+    };
+}
+async UpdateNews(){
+    this.props.setProgress(10);
+    let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=1&pageSize=${this.props.pageSize}`;
+    this.setState({loading:true});
+    let data= await fetch(url);
+    this.props.setProgress(30);
+    let parsedData= await data.json()
+    this.props.setProgress(70);
+    this.setState({article: parsedData.articles,
+         totalResults: parsedData.totalResults,
+         loading:false
+        })
+        this.props.setProgress(100);
+}
+
+
+async componentDidMount(){
+    // let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=1&pageSize=${this.props.pageSize}`;
+    // this.setState({loading:true});
+    // let data= await fetch(url);
+    // let parsedData= await data.json()
+    // this.setState({article: parsedData.articles,
+    //      totalResults: parsedData.totalResults,
+    //      loading:false
+    //     })
+    this.UpdateNews();
+}
+
+handlePrevClick= async()=>{
+    
+//     let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page-1}&pageSize=${this.props.pageSize}`;
+//     this.setState({loading:true});
+//     let data= await fetch(url);
+//     let parsedData= await data.json();
+// this.setState({
+//     page: this.state.page -1,
+//     article: parsedData.articles,
+//     loading:false
+// })
+
+this.setState({ page:this.state.page -1});
+this.UpdateNews();
+}
+
+handleNextClick=async()=>{
+//     if(!(this.state.page+1 > Math.ceil(this.state.totalResults/this.props.pageSize))){
+    
+//     let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page+1}&pageSize=${this.props.pageSize}`;
+//     this.setState({loading:true});
+//     let data= await fetch(url);
+//     let parsedData= await data.json()
+    
+// this.setState({
+//     page: this.state.page + 1,
+//     article: parsedData.articles,
+//     loading:false
+// })
+// }
+this.setState({ page:this.state.page +1});
+this.UpdateNews();
+}
+
+fetchMoreData=async()=>{
+    const url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page+1} &pageSize=${this.props.pageSize}`;
+  this.setState({page:this.state.page+1})
+  let data= await fetch(url);
+  let parsedData= await data.json()
+  this.setState({
+    article: this.state.article.concat( parsedData.articles),
+       totalResults: parsedData.totalResults,
+       loading:false
+      })
+}
+
+
+    render() {
+        return (
+   
+           <div className="container my-3">
+          <h1 className="text-center" style={{margin: '35px 0px'}}>Top Headlines</h1> 
+             { this.state.loading && <Spinner/>}
+
+    <InfiniteScroll
+    dataLength={this.state.article.length}
+    next={this.fetchMoreData}
+    hasMore={this.state.article.length!==this.state.totalResults}
+    loader={<Spinner/>}
+ >
+
+        
+         <div className="container">
+         
+          <div className="row">
+            {
+            // !this.state.loading && this.state.article.map((element)=>{
+             this.state.article.map((element)=>{
+
+              return <div className="col-md-4 my-3" key={element.url}>
+              <NewsItem title={element.title?element.title.slice(0,45):""} description={element.description?element.description.slice(0,80):""} 
+              imageurl={element.urlToImage} newsurl={element.url} author={element.author} date={element.publishedAt} />
+              </div>
+
+            })}
+          </div>
+          </div>
+          </InfiniteScroll>
+      </div>
+          
+          // {/* <div className="container d-flex justify-content-between">
+          // <button disabled={this.state.page<=1} type="button" className="btn btn-dark" onClick={this.handlePrevClick}> &larr; Previous</button>
+          // <button disabled={(this.state.page+1 > Math.ceil(this.state.totalResults/this.props.pageSize))}type="button" className="btn btn-dark" onClick={this.handleNextClick}>Next &rarr;</button>
+          // </div> */}
+          
+         
+       );
+    }
+}
+
+News.propTypes = propTypes;
+News.defaultProps = defaultProps;
+
+
+export default News;
