@@ -24,4 +24,5 @@ React Router
 CSS Modules
 JavaScript (ES6+)
 HTML5
+
 This project showcases my proficiency in React.js, modern web development practices, and my commitment to creating dynamic, user-friendly applications.
